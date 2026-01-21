@@ -1,6 +1,7 @@
 <script setup>
 // import HelloWorld from './components/HelloWorld.vue'
 import { ref, reactive } from 'vue'
+import BotonContador from './components/BotonContador.vue';
 
 const mensaje = ref("Esto es un mensaje")
 const contador = ref(1);
@@ -29,6 +30,11 @@ const cambiarMensaje = () => {
 
 const cambiarRiesgo = (nuevoRiesgo) => miRiesgo.value = nuevoRiesgo;
 
+const caracteristicas = reactive(['fuerza', 'habilidad', 'vida', 'magia']);
+
+function borrarCaracteristica(index) {
+  caracteristicas.splice(index,1);
+}
 </script>
 
 <template>
@@ -86,6 +92,16 @@ const cambiarRiesgo = (nuevoRiesgo) => miRiesgo.value = nuevoRiesgo;
     >
     <button @click="numeros.push(nuevoNumero)">Insertar</button>
   </p>
+  <BotonContador titulo="fuerza" />
+
+  <BotonContador titulo="energía"/>
+  <BotonContador titulo="vida"/>
+  
+  <ul>
+    <li v-for="(caracteristica,index) in caracteristicas" :key="index" >
+      <BotonContador :titulo="caracteristica" @borrarCaracter="borrarCaracteristica(index)"/>
+    </li>
+  </ul>
 </template>
 
 <style scoped>
